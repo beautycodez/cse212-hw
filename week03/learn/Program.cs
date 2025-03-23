@@ -9,5 +9,8 @@ public class Program
 
         Console.WriteLine("\n======================\nTranslator\n======================");
         Translator.Run();
+
+        Console.WriteLine("\n======================\nFind First Duplicate Letter\n======================");
+        FindFirstDuplicateLetter.Run();
     }
 }

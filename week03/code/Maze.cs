@@ -33,6 +33,29 @@ public class Maze
     public void MoveLeft()
     {
         // FILL IN CODE
+        try
+        {
+            var keys = (_currX, _currY);
+            // Condición adicional con claves específicas
+            if (keys == (2, 3) || keys ==(3, 5) ||
+                keys ==(3, 6) || keys ==(4, 1) ||
+                keys ==(4, 3) || keys ==(5, 2) ||
+                keys ==(5, 5) || keys ==(5, 6) ||
+                keys ==(1,1) || keys ==(1,2) ||
+                keys ==(1,4) || keys ==(1,5) ||
+                keys ==(1,6))
+            {
+                _mazeMap[keys][0] = false;
+                throw new InvalidOperationException("Can't go that way!");
+            } else {
+                _currX = _currX -1;
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
     }
 
     /// <summary>
@@ -42,6 +65,29 @@ public class Maze
     public void MoveRight()
     {
         // FILL IN CODE
+        try
+        {
+            var keys = (_currX, _currY);
+            // Condición adicional con claves específicas
+            if (keys == (2, 1) || keys ==(2, 2) ||
+                keys ==(2, 3) || keys ==(3, 5) ||
+                keys ==(3, 6) || keys ==(5, 2) ||
+                keys ==(5, 4) || keys ==(5, 5) ||
+                keys == (6, 1) || keys == (6, 3) ||
+                keys == (6, 6)) 
+            {
+                _mazeMap[keys][1] = false;
+                throw new InvalidOperationException("Can't go that way!");
+            } else {
+                _currX = _currX + 1;
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
+
     }
 
     /// <summary>
@@ -51,6 +97,28 @@ public class Maze
     public void MoveUp()
     {
         // FILL IN CODE
+        try
+        {
+            var keys = (_currX, _currY);
+
+            // Condición adicional con claves específicas
+            if (keys == (1, 4) || keys == (3, 4) ||
+                keys == (4, 3) || keys == (6, 3) ||
+                keys == (6, 6) || keys == (1, 1) ||
+                keys == (2, 1) || keys == (4, 1)|| 
+                keys == (5, 1) || keys == (6, 1)) 
+            {
+                _mazeMap[keys][2] = false;
+                throw new InvalidOperationException("Can't go that way!");
+            }else {
+                _currY = _currY - 1;
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
     }
 
     /// <summary>
@@ -60,6 +128,28 @@ public class Maze
     public void MoveDown()
     {
         // FILL IN CODE
+        try
+        {
+            var keys = (_currX, _currY);
+
+            // Condición adicional con claves específicas
+            if (keys == (1, 2) || keys == (2, 4) ||
+                keys == (4, 1) || keys == (4, 4) ||
+                keys == (6, 1) || keys == (6, 3) ||
+                keys == (1, 6) || keys == (3, 6) || 
+                keys == (5, 6) || keys == (6, 6))
+            {
+                _mazeMap[keys][3] = false;
+                throw new InvalidOperationException("Can't go that way!");
+            } else {
+                _currY = _currY + 1;
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
     }
 
     public string GetStatus()

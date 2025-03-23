@@ -22,7 +22,33 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var pairsSet = new HashSet<string>();
+        var reversedPairSet = new HashSet<string>();
+        var firstLetter = "";
+        var secondLetter = "";
+        var reversedPair = "";
+        var pairsFound = "";
+        var reversedPairFound = "";
+        foreach (var pair in words)
+        {
+
+            firstLetter = pair[0].ToString();
+            secondLetter = pair[1].ToString();
+            reversedPair = secondLetter + firstLetter;
+
+
+            if (words.Contains(reversedPair))
+            {
+                pairsFound = $"{pair} & {reversedPair}";
+                reversedPairFound = $"{reversedPair} & {pair}";
+                if (!pairsSet.Contains(reversedPairFound) && pairsFound != reversedPairFound)
+                {
+                    pairsSet.Add(pairsFound);
+                }
+            }
+
+        }
+        return pairsSet.ToArray<string>();
     }
 
     /// <summary>
@@ -43,6 +69,15 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            if (!degrees.ContainsKey(degree))
+            {
+                degrees[degree] = 1;
+            }
+            else
+            {
+                degrees[degree] += 1;
+            }
         }
 
         return degrees;
@@ -64,10 +99,55 @@ public static class SetsAndMaps
     /// Reminder: You can access a letter by index in a string by 
     /// using the [] notation.
     /// </summary>
+    /// 
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // Eliminar espacios en blanco de ambas palabras
+        word1 = word1.Replace(" ", "").ToUpper();
+        word2 = word2.Replace(" ", "").ToUpper();
+
+        // Si las longitudes no coinciden, no pueden ser anagramas
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+
+        // Diccionarios para contar ocurrencias de cada letra
+        var anagramDictionary = new Dictionary<char, int>();
+        var anagramDictionaryWord1 = new Dictionary<char, int>();
+
+        // Contar las letras en la primera palabra
+        foreach (var letter in word1)
+        {
+            if (!anagramDictionaryWord1.ContainsKey(letter))
+            {
+                anagramDictionaryWord1[letter] = 1;
+            }
+            else
+            {
+                anagramDictionaryWord1[letter]++;
+            }
+        }
+
+        // Contar las letras en la segunda palabra
+        foreach (var letter in word2)
+        {
+            if (!anagramDictionary.ContainsKey(letter))
+            {
+                anagramDictionary[letter] = 1;
+            }
+            else
+            {
+                anagramDictionary[letter]++;
+            }
+        }
+
+        // Comparar los diccionarios
+        bool areEqual = anagramDictionary.Count == anagramDictionaryWord1.Count &&
+                        anagramDictionary.All(kvp => anagramDictionaryWord1.ContainsKey(kvp.Key) &&
+                                                     anagramDictionaryWord1[kvp.Key] == kvp.Value);
+
+        return areEqual;
     }
 
     /// <summary>
